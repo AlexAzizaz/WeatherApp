@@ -93,6 +93,9 @@
                                                 <state key="normal" title="Refresh">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="refreshButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="O5o-OD-twt"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -108,6 +111,15 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="appearentTemperatureLable" destination="Jdo-lk-twg" id="ezG-ZO-ZwM"/>
+                        <outlet property="humidityLable" destination="eTd-Mc-Hky" id="nH0-0g-zOX"/>
+                        <outlet property="imageView" destination="mmL-Gz-koO" id="KEO-dt-1lf"/>
+                        <outlet property="locationLable" destination="cCI-ZV-Tn4" id="igv-5Z-ZsC"/>
+                        <outlet property="pressureLable" destination="2dy-IO-Cb3" id="mlB-ax-07h"/>
+                        <outlet property="refreshButton" destination="2d7-IK-QLS" id="LCV-4G-1in"/>
+                        <outlet property="temperatureLable" destination="OLi-bn-1WU" id="W35-mZ-5gO"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
