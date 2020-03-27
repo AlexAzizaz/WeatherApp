@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import CoreLocation
 
-class ViewController: UIViewController {
-
+class ViewController: UIViewController, CLLocationManagerDelegate {
+    
     @IBOutlet weak var locationLable: UILabel!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var pressureLable: UILabel!
@@ -18,6 +19,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var appearentTemperatureLable: UILabel!
     @IBOutlet weak var refreshButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    let locationManager = CLLocationManager()
     
     @IBAction func refreshButtonTapped(_ sender: UIButton) {
         toggleActivityIndicator(on: true)
@@ -40,27 +43,38 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        getCurrentWeatherData()
-
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestAlwaysAuthorization()
+        locationManager.startUpdatingLocation()
         
-//        let icon = WeatherIconManager.Rain.image
-//        let currentWeather = CurrentWeather(temeratura: 10.0, apparentTemperature: 5.0, humidity: 30, pressure: 750, icon: icon)
-//        updateUIWith(currentWeather: currentWeather)
-  
+        getCurrentWeatherData()
+        
+        
+        //        let icon = WeatherIconManager.Rain.image
+        //        let currentWeather = CurrentWeather(temeratura: 10.0, apparentTemperature: 5.0, humidity: 30, pressure: 750, icon: icon)
+        //        updateUIWith(currentWeather: currentWeather)
+        
         /*Говно
-////       let urlString = "https://api.darksky.net/forecast/91ad4e09a24133ad33c5abccc19563d0/37.8267,-122.4233"
-//        let baseURL = URL(string: "https://api.darksky.net/forecast/91ad4e09a24133ad33c5abccc19563d0/")
-//        let fullURL = URL(string: "37.8267,-122.4233", relativeTo: baseURL)
-//
-//        let sessionConfiguration = URLSessionConfiguration.default
-//        let session = URLSession(configuration: sessionConfiguration)
-//
-//        let request = URLRequest(url: fullURL!)
-//        let dataTask = session.dataTask(with: fullURL!) { (data, response, error) in
-//
-//        }
-//        dataTask.resume()
+         ////       let urlString = "https://api.darksky.net/forecast/91ad4e09a24133ad33c5abccc19563d0/37.8267,-122.4233"
+         //        let baseURL = URL(string: "https://api.darksky.net/forecast/91ad4e09a24133ad33c5abccc19563d0/")
+         //        let fullURL = URL(string: "37.8267,-122.4233", relativeTo: baseURL)
+         //
+         //        let sessionConfiguration = URLSessionConfiguration.default
+         //        let session = URLSession(configuration: sessionConfiguration)
+         //
+         //        let request = URLRequest(url: fullURL!)
+         //        let dataTask = session.dataTask(with: fullURL!) { (data, response, error) in
+         //
+         //        }
+         //        dataTask.resume()
          */
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let userLocation = locations.last! as CLLocation
+        
+        print("my location latitude: \(userLocation.coordinate.latitude), longitude: \(userLocation.coordinate.longitude)")
     }
     
     func getCurrentWeatherData() {
@@ -84,10 +98,10 @@ class ViewController: UIViewController {
     func updateUIWith(currentWeather: CurrentWeather) {
         
         imageView.image = currentWeather.icon
-//        pressureLable.text = "\(Int(currentWeather.pressure))mm"
-//        temperatureLable.text = "\(Int(currentWeather.temeratura))ºC"
-//        appearentTemperatureLable.text = "\(Int(currentWeather.appearentTemperature))ºC"
-//        humidityLable.text = "\(Int(currentWeather.humidity))%"
+        //        pressureLable.text = "\(Int(currentWeather.pressure))mm"
+        //        temperatureLable.text = "\(Int(currentWeather.temeratura))ºC"
+        //        appearentTemperatureLable.text = "\(Int(currentWeather.appearentTemperature))ºC"
+        //        humidityLable.text = "\(Int(currentWeather.humidity))%"
         
         pressureLable.text = currentWeather.pressureString
         temperatureLable.text = currentWeather.temperatureString
@@ -96,6 +110,6 @@ class ViewController: UIViewController {
         
         
     }
-
+    
 }
 
